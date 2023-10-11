@@ -18,3 +18,15 @@ protobuf的基础使用。工具环境：protobuf 4.0.x branch的源码，Visual
                  b) 在 链接器 | 输入 | 附加依赖项，Debug配置输入libprotobufd.lib、Release配置输入libprotobuf.lib
                  c) C/C++ | 代码生成 | 运行库，选择/MT
 */
+
+//  .proto文件语法：https://protobuf.dev/programming-guides/proto2/
+//	1. 数据类型：bool, int32, int64，float, double, string；使用enum定义枚举类型。详见：https://protobuf.dev/programming-guides/proto2/#scalar
+//  2. repeated表示数组，建议追加[packed = true]以提升编码效率
+//  3. required vs. optional：required字段一旦定义之后不能修改，不能删除，不建议使用！（Proto3已经不再支持required）
+//  4. 字段序号（Field Number）不能重复！一个字段一旦被分配了一个序号，不可修改。高频字段使用1~15的数字（这些字段编码时仅用一个字节，节省空间）
+//  5. 如果要删除某个字段，其曾使用的field number必须保留（字段的名字也应该保留），即不可再用作其他字段；可以使用reserved来定义保留字段名字和序号
+//  6. 一个字段一旦定义，类型和序号就不能再改变了！！！但可以与extension互转。
+//	   例外：这些类型之间的转换是兼容的：（int32, uint32, int64, uint64, bool）、（sint32和sint6）、（string和bytes，若bytes是UTF-8）...
+//  7. [under development] google.protobuf.Any表示任意类型，对其解析的.proto须在线部署
+//  8. oneof 类似于C++的union，结构体里同一时间只有一个字段可用
+//  9. map<key_type, value_type> map_field = N;  不能使用repeated, optional, or required

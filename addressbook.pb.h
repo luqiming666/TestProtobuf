@@ -428,8 +428,10 @@ class Person PROTOBUF_FINAL :
 
   enum : int {
     kPhonesFieldNumber = 4,
+    kNicknameFieldNumber = 5,
     kNameFieldNumber = 1,
     kEmailFieldNumber = 3,
+    kSecretsFieldNumber = 6,
     kIdFieldNumber = 2,
   };
   // repeated .tutorial.Person.PhoneNumber phones = 4;
@@ -449,6 +451,30 @@ class Person PROTOBUF_FINAL :
   ::tutorial::Person_PhoneNumber* add_phones();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::tutorial::Person_PhoneNumber >&
       phones() const;
+
+  // repeated string nickname = 5;
+  int nickname_size() const;
+  private:
+  int _internal_nickname_size() const;
+  public:
+  void clear_nickname();
+  const std::string& nickname(int index) const;
+  std::string* mutable_nickname(int index);
+  void set_nickname(int index, const std::string& value);
+  void set_nickname(int index, std::string&& value);
+  void set_nickname(int index, const char* value);
+  void set_nickname(int index, const char* value, size_t size);
+  std::string* add_nickname();
+  void add_nickname(const std::string& value);
+  void add_nickname(std::string&& value);
+  void add_nickname(const char* value);
+  void add_nickname(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& nickname() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_nickname();
+  private:
+  const std::string& _internal_nickname(int index) const;
+  std::string* _internal_add_nickname();
+  public:
 
   // optional string name = 1;
   bool has_name() const;
@@ -490,6 +516,26 @@ class Person PROTOBUF_FINAL :
   std::string* _internal_mutable_email();
   public:
 
+  // optional bytes secrets = 6;
+  bool has_secrets() const;
+  private:
+  bool _internal_has_secrets() const;
+  public:
+  void clear_secrets();
+  const std::string& secrets() const;
+  void set_secrets(const std::string& value);
+  void set_secrets(std::string&& value);
+  void set_secrets(const char* value);
+  void set_secrets(const void* value, size_t size);
+  std::string* mutable_secrets();
+  std::string* release_secrets();
+  void set_allocated_secrets(std::string* secrets);
+  private:
+  const std::string& _internal_secrets() const;
+  void _internal_set_secrets(const std::string& value);
+  std::string* _internal_mutable_secrets();
+  public:
+
   // optional int32 id = 2;
   bool has_id() const;
   private:
@@ -513,8 +559,10 @@ class Person PROTOBUF_FINAL :
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::tutorial::Person_PhoneNumber > phones_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> nickname_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr email_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr secrets_;
   ::PROTOBUF_NAMESPACE_ID::int32 id_;
   friend struct ::TableStruct_addressbook_2eproto;
 };
@@ -865,7 +913,7 @@ inline void Person::set_allocated_name(std::string* name) {
 
 // optional int32 id = 2;
 inline bool Person::_internal_has_id() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline bool Person::has_id() const {
@@ -873,7 +921,7 @@ inline bool Person::has_id() const {
 }
 inline void Person::clear_id() {
   id_ = 0;
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 Person::_internal_id() const {
   return id_;
@@ -883,7 +931,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 Person::id() const {
   return _internal_id();
 }
 inline void Person::_internal_set_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
   id_ = value;
 }
 inline void Person::set_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -1002,6 +1050,154 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::tutorial::Person_Phone
 Person::phones() const {
   // @@protoc_insertion_point(field_list:tutorial.Person.phones)
   return phones_;
+}
+
+// repeated string nickname = 5;
+inline int Person::_internal_nickname_size() const {
+  return nickname_.size();
+}
+inline int Person::nickname_size() const {
+  return _internal_nickname_size();
+}
+inline void Person::clear_nickname() {
+  nickname_.Clear();
+}
+inline std::string* Person::add_nickname() {
+  // @@protoc_insertion_point(field_add_mutable:tutorial.Person.nickname)
+  return _internal_add_nickname();
+}
+inline const std::string& Person::_internal_nickname(int index) const {
+  return nickname_.Get(index);
+}
+inline const std::string& Person::nickname(int index) const {
+  // @@protoc_insertion_point(field_get:tutorial.Person.nickname)
+  return _internal_nickname(index);
+}
+inline std::string* Person::mutable_nickname(int index) {
+  // @@protoc_insertion_point(field_mutable:tutorial.Person.nickname)
+  return nickname_.Mutable(index);
+}
+inline void Person::set_nickname(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:tutorial.Person.nickname)
+  nickname_.Mutable(index)->assign(value);
+}
+inline void Person::set_nickname(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:tutorial.Person.nickname)
+  nickname_.Mutable(index)->assign(std::move(value));
+}
+inline void Person::set_nickname(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  nickname_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:tutorial.Person.nickname)
+}
+inline void Person::set_nickname(int index, const char* value, size_t size) {
+  nickname_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:tutorial.Person.nickname)
+}
+inline std::string* Person::_internal_add_nickname() {
+  return nickname_.Add();
+}
+inline void Person::add_nickname(const std::string& value) {
+  nickname_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:tutorial.Person.nickname)
+}
+inline void Person::add_nickname(std::string&& value) {
+  nickname_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:tutorial.Person.nickname)
+}
+inline void Person::add_nickname(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  nickname_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:tutorial.Person.nickname)
+}
+inline void Person::add_nickname(const char* value, size_t size) {
+  nickname_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:tutorial.Person.nickname)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+Person::nickname() const {
+  // @@protoc_insertion_point(field_list:tutorial.Person.nickname)
+  return nickname_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+Person::mutable_nickname() {
+  // @@protoc_insertion_point(field_mutable_list:tutorial.Person.nickname)
+  return &nickname_;
+}
+
+// optional bytes secrets = 6;
+inline bool Person::_internal_has_secrets() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool Person::has_secrets() const {
+  return _internal_has_secrets();
+}
+inline void Person::clear_secrets() {
+  secrets_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline const std::string& Person::secrets() const {
+  // @@protoc_insertion_point(field_get:tutorial.Person.secrets)
+  return _internal_secrets();
+}
+inline void Person::set_secrets(const std::string& value) {
+  _internal_set_secrets(value);
+  // @@protoc_insertion_point(field_set:tutorial.Person.secrets)
+}
+inline std::string* Person::mutable_secrets() {
+  // @@protoc_insertion_point(field_mutable:tutorial.Person.secrets)
+  return _internal_mutable_secrets();
+}
+inline const std::string& Person::_internal_secrets() const {
+  return secrets_.Get();
+}
+inline void Person::_internal_set_secrets(const std::string& value) {
+  _has_bits_[0] |= 0x00000004u;
+  secrets_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void Person::set_secrets(std::string&& value) {
+  _has_bits_[0] |= 0x00000004u;
+  secrets_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:tutorial.Person.secrets)
+}
+inline void Person::set_secrets(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000004u;
+  secrets_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:tutorial.Person.secrets)
+}
+inline void Person::set_secrets(const void* value,
+    size_t size) {
+  _has_bits_[0] |= 0x00000004u;
+  secrets_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:tutorial.Person.secrets)
+}
+inline std::string* Person::_internal_mutable_secrets() {
+  _has_bits_[0] |= 0x00000004u;
+  return secrets_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* Person::release_secrets() {
+  // @@protoc_insertion_point(field_release:tutorial.Person.secrets)
+  if (!_internal_has_secrets()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000004u;
+  return secrets_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void Person::set_allocated_secrets(std::string* secrets) {
+  if (secrets != nullptr) {
+    _has_bits_[0] |= 0x00000004u;
+  } else {
+    _has_bits_[0] &= ~0x00000004u;
+  }
+  secrets_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), secrets,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:tutorial.Person.secrets)
 }
 
 // -------------------------------------------------------------------

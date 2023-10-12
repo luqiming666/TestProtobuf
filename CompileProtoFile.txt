@@ -7,4 +7,4 @@ git status
 git submodule update --init
 
 // 依据 .proto 文件转成 .cc 和 .h
-protoc -I=D:\Dev\VC\TestProtobuf --cpp_out=D:\Dev\VC\TestProtobuf addressbook.proto
+protoc -I=.\ --cpp_out=.\ addressbook.proto

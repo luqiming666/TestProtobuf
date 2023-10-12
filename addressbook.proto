@@ -20,6 +20,9 @@ message Person {
   }
 
   repeated PhoneNumber phones = 4;
+
+  repeated string nickname = 5;
+  optional bytes secrets = 6;
 }
 
 message AddressBook {

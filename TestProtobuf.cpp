@@ -71,6 +71,15 @@ void PromptForAddress(tutorial::Person* person) {
             cout << "Unknown phone type.  Using default." << endl;
         }
     }
+
+    // hard-code for some new fields
+    person->add_nickname("Jimmy");
+    person->add_nickname("LuLu");
+    person->add_nickname("Happydeer");
+
+    char buffer[] = { 0x41, 0x42, 0x00, 0x43, 0x44, 0x45, 0x46 }; // test if we can read all data completely
+    int length = sizeof(buffer) / sizeof(buffer[0]);
+    person->set_secrets(buffer, length);
 }
 
 // Iterates though all people in the AddressBook and prints info about them.
@@ -100,6 +109,22 @@ void ListPeople(const tutorial::AddressBook& address_book) {
             }
             cout << phone_number.number() << endl;
         }
+
+        // check the hard-coded new fields
+        for (int k = 0; k < person.nickname_size(); k++) {
+            cout << "Nickname: " << person.nickname(k) << endl;
+        }
+        const string& strScrets = person.secrets(); // 如果包含'\0'，则无法完整读取所有数据
+        int bufsize = strScrets.size(); // 完整数据的长度，而非字符串长度
+        int len = strScrets.length();
+        char* pBuf = (char*) strScrets.c_str();
+
+        char* pNewBuf = new char[bufsize];
+        for (int aa = 0; aa < bufsize; aa++) {
+            pNewBuf[aa] = pBuf[aa];
+        }
+        char* pNewBufOffset = pNewBuf + 3; // check the characters after '\0'
+        delete[] pNewBuf;
     }
 }
 
@@ -124,7 +149,7 @@ int CreateFirstPeople(string& pbFile)
 
 //////////////////////////////////////////////////////////////////////////////////////
 bool gCreateFirstPeople = false; // Change it to true for the first run
-bool gAddNewPeople = true; // To test adding a new people to the existing address_book
+bool gAddNewPeople = false; // To test adding a new people to the existing address_book
 
 int main()
 {

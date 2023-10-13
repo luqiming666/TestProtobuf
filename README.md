@@ -17,6 +17,7 @@ protobuf的基础使用。工具环境：protobuf 4.0.x branch的源码，Visual
      * a) 把protobuf的源码src目录（e.g. D:\Dev\GitHub\protobuf\src）加到 C/C++ | 常规 | 附件包含目录
      * b) 在 链接器 | 输入 | 附加依赖项，Debug配置输入libprotobufd.lib、Release配置输入libprotobuf.lib
      * c) C/C++ | 代码生成 | 运行库，选择/MT
+     * d) 在xxx.pb.cc的属性页，C/C++ | 预编译头，选择“不使用预编译头”
 
 
 ***

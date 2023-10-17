@@ -4,7 +4,10 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <sstream>
+
 #include "addressbook.pb.h"
+#include "GameAssets.pb.h"
 
 using namespace std;
 
@@ -147,6 +150,38 @@ int CreateFirstPeople(string& pbFile)
     return 0;
 }
 
+// Testing result > no compression at all!!!
+//  bomb.he: 111607 bytes
+//  assets.bnk: 111611 bytes
+int TestAssetCompression()
+{
+    std::ifstream file("bomb.he");
+    std::stringstream buffer;
+
+    if (file.is_open()) { // 检查文件是否成功打开
+        buffer << file.rdbuf(); 
+        file.close();
+    }
+    else {
+        std::cout << "无法打开文件" << std::endl;
+        return 1;
+    }
+
+    std::string content = buffer.str();
+
+    std::string assetFile = "assets.bnk";
+    PBTester::AssetBank assetBank;
+    //assetBank.set_he1(content.c_str(), content.length());
+    assetBank.set_he1(content);
+    //assetBank.set_he2(content);
+
+    {
+        fstream output(assetFile, ios::out | ios::trunc | ios::binary);
+        assetBank.SerializeToOstream(&output);
+    }
+
+    return 0;
+}
 
 //////////////////////////////////////////////////////////////////////////////////////
 bool gCreateFirstPeople = false; // Change it to true for the first run
@@ -157,6 +192,8 @@ int main()
     // Verify that the version of the library that we linked against is
     // compatible with the version of the headers we compiled against.
     GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+    TestAssetCompression();
 
     string bookFile = "D:\\mybook.pb";
 

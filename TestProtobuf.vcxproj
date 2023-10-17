@@ -146,13 +146,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="addressbook.pb.cc" />
+    <ClCompile Include="GameAssets.pb.cc" />
     <ClCompile Include="TestProtobuf.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="addressbook.pb.h" />
+    <ClInclude Include="GameAssets.pb.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="addressbook.proto" />
+    <None Include="GameAssets.proto" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

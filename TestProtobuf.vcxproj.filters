@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="proto files">
+      <UniqueIdentifier>{9b1fc96c-0c36-4ec9-8f43-1d6fbcfa394a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TestProtobuf.cpp">
@@ -21,15 +24,24 @@
     <ClCompile Include="addressbook.pb.cc">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="GameAssets.pb.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="addressbook.pb.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="GameAssets.pb.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="GameAssets.proto">
+      <Filter>proto files</Filter>
+    </None>
     <None Include="addressbook.proto">
-      <Filter>源文件</Filter>
+      <Filter>proto files</Filter>
     </None>
   </ItemGroup>
 </Project>

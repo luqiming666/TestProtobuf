@@ -1,0 +1,120 @@
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Android App插件化实践：动态加载Unity apk
+
+
+推荐先读这篇博文，Android插件化动态加载apk：https://blog.csdn.net/qq_27938211/article/details/127576297。这篇文章关联的开源项目是https://github.com/walkingCoder/PluginDemo，致谢！原项目是2017年的，比较老了。我fork了一个版本，匹配了最新的Android Studio和Gradle编译环境，把原项目使用的support库升级到了AndroidX，并且解决了在高版本Android上无法访问/sdcard 根目录中的问题（会导致getPackageArchiveInfo始终返回null，感谢这篇文章：https://blog.csdn.net/xiaowang_lj/article/details/128081642）
+
+我fork的版本：https://github.com/luqiming666/AndroidPluginDemo
+
+0. 在Unity中导出Android工程，执行菜单：File | Build Settings... 平台选择Android，并且勾选Export Project
+Player Settings... Android配置页，Other Settings | Configuration
+Scripting Backend选择IL2CPP
+Api Compatibility Level选择 .NET Framework
+Target Architectures同时勾选 ARMv7 和 ARM64
+
+演示工程：
+
+1. 在Unity Android project 根目录、launcher、unityLibrary等3个目录下都要放.gitignore
+2. 将AndroidPluginDemo下的plugin目录完整拷贝至Unity Android项目下，与unityLibrary平级
+3. 将AndroidPluginDemo下的BaseActivity.java 拷贝放入unityLibrary项目的 UnityPlayerActivity.java 相同文件夹内。将BaseActivity.java文件头上的包名改为com.unity3d.player
+
+4. 修改Unity Android项目根目录下的配置
+（1）settings.gradle：在inlude后面补上':plugin'
+include ':launcher', ':unityLibrary', ':plugin'
+（2）gradle.properties：打开使用AndroidX的开关
+android.useAndroidX=true
+
+5. 修改unityLibrary的build.gradle，在dependencies下增加库依赖：
+implementation project(':plugin')
+implementation 'androidx.core:core-ktx:1.8.0'
+implementation 'androidx.appcompat:appcompat:1.4.2'
+
+然后别忘了点一下Android Studio工具栏右上角的那头“大象”：Sync Project with Gradle Files
+
+6. 修改unityLibrary的AndroidManifest.xml，确保其采用Theme.AppCompat.xxx主题，即在<application>节点增加如下属性
+android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+并删除<activity>的 android:theme
+
+更好方案？
+unityLibrary\src\main\res\values-v28目录下的styles.xml，将BaseUnityTheme的parent改成AppCompat主题
+<style name="BaseUnityTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+
+
+7. 将UnityPlayerActivity的基类从Activity改成BaseActivity。并把onCreate、onDestroy、onStop、onStart、onPause、onResume等几个函数改成public。此时，这个Unity程序已经不能独立运行了！
+
+UnityPlayerActivity类的onCreate修改：
+//String cmdLine = updateUnityCommandLineArguments(getIntent().getStringExtra("unity"));
+        //getIntent().putExtra("unity", cmdLine);
+
+mUnityPlayer = new UnityPlayer(thisContext, this);
+
+
+8. 解决native库加载问题
+将 unityLibrary\src\main\jniLibs 目录完整拷贝到AndroidPluginDemo\app\src\main目录下，与java目录平级。这些.so文件会被打包进宿主apk里。
+
+
+
+
+FATAL EXCEPTION: main
+                                                                                                    Process: com.ABC.BasicCube, PID: 25399
+                                                                                                    java.lang.RuntimeException: Unable to start activity ComponentInfo{com.ABC.BasicCube/com.unity3d.player.UnityPlayerActivity}: java.lang.IllegalStateException: You need to use a Theme.AppCompat theme (or descendant) with this activity.
+
+
+
+Failure to initialize!
+Your hardware does not support this application. 
+Failed to load 'libmain.so'.
+
+无法在x64的目录下找到32位的库...
+
+确保主app支持的CPU架构与从属app一致?????
+
+ndk {
+            abiFilters 'armeabi-v7a'
+        }
+
+ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+        }
+
+
+FATAL EXCEPTION: main
+                                                                                                    Process: com.beijing.zzu.plugindemo, PID: 28650
+                                                                                                    java.lang.RuntimeException: Unable to start activity ComponentInfo{com.beijing.zzu.plugindemo/com.beijing.zzu.plugindemo.ProxyActivity}: android.content.res.Resources$NotFoundException: String resource ID #0x0
+                                                                                                    	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:3775)
+                                                                                                    	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:3921)
+                                                                                                    	at android.app.servertransaction.LaunchActivityItem.execute(LaunchActivityItem.java:101)
+                                                                                                    	at android.app.servertransaction.TransactionExecutor.executeCallbacks(TransactionExecutor.java:135)
+                                                                                                    	at android.app.servertransaction.TransactionExecutor.execute(TransactionExecutor.java:95)
+                                                                                                    	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2363)
+                                                                                                    	at android.os.Handler.dispatchMessage(Handler.java:106)
+                                                                                                    	at android.os.Looper.loopOnce(Looper.java:210)
+                                                                                                    	at android.os.Looper.loop(Looper.java:299)
+                                                                                                    	at android.app.ActivityThread.main(ActivityThread.java:8116)
+                                                                                                    	at java.lang.reflect.Method.invoke(Native Method)
+                                                                                                    	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:559)
+                                                                                                    	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:950)
+                                                                                                    Caused by: android.content.res.Resources$NotFoundException: String resource ID #0x0
+                                                                                                    	at android.content.res.Resources.getText(Resources.java:472)
+                                                                                                    	at android.content.res.Resources.getString(Resources.java:565)
+                                                                                                    	at com.unity3d.player.J.a(Unknown Source:20)
+                                                                                                    	at com.unity3d.player.J.<init>(Unknown Source:97)
+                                                                                                    	at com.unity3d.player.UnityPlayer.<init>(Unknown Source:277)
+                                                                                                    	at com.unity3d.player.UnityPlayerActivity.onCreate(UnityPlayerActivity.java:42)
+
+private String GetGlViewContentDescription(Context var1) {
+        Resources var10000 = var1.getResources();
+        Resources var10001 = var1.getResources();
+        String var2 = var1.getPackageName();
+        return var10000.getString(var10001.getIdentifier("game_view_content_description", "string", var2));
+    }
+
+
+
+
+//// 每次Unity Export之后，哪些文件需要更新？
+src\main\assets\bin
+src\main\jniLibs？
+src\main\jniStaticLibs?

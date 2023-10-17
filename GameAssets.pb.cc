@@ -45,12 +45,10 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_GameAssets_2eproto::offsets[] 
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::PBTester::AssetBank, he1_),
-  PROTOBUF_FIELD_OFFSET(::PBTester::AssetBank, he2_),
   0,
-  1,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 7, sizeof(::PBTester::AssetBank)},
+  { 0, 6, sizeof(::PBTester::AssetBank)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -58,8 +56,8 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 };
 
 const char descriptor_table_protodef_GameAssets_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\020GameAssets.proto\022\010PBTester\"%\n\tAssetBan"
-  "k\022\013\n\003he1\030\001 \001(\014\022\013\n\003he2\030\002 \001(\t"
+  "\n\020GameAssets.proto\022\010PBTester\"\030\n\tAssetBan"
+  "k\022\013\n\003he1\030\001 \001(\014"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_GameAssets_2eproto_deps[1] = {
 };
@@ -68,7 +66,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_Gam
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_GameAssets_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_GameAssets_2eproto = {
-  false, false, descriptor_table_protodef_GameAssets_2eproto, "GameAssets.proto", 67,
+  false, false, descriptor_table_protodef_GameAssets_2eproto, "GameAssets.proto", 54,
   &descriptor_table_GameAssets_2eproto_once, descriptor_table_GameAssets_2eproto_sccs, descriptor_table_GameAssets_2eproto_deps, 1, 0,
   schemas, file_default_instances, TableStruct_GameAssets_2eproto::offsets,
   file_level_metadata_GameAssets_2eproto, 1, file_level_enum_descriptors_GameAssets_2eproto, file_level_service_descriptors_GameAssets_2eproto,
@@ -88,9 +86,6 @@ class AssetBank::_Internal {
   static void set_has_he1(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static void set_has_he2(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
-  }
 };
 
 AssetBank::AssetBank(::PROTOBUF_NAMESPACE_ID::Arena* arena)
@@ -108,18 +103,12 @@ AssetBank::AssetBank(const AssetBank& from)
     he1_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_he1(),
       GetArena());
   }
-  he2_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_he2()) {
-    he2_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_he2(),
-      GetArena());
-  }
   // @@protoc_insertion_point(copy_constructor:PBTester.AssetBank)
 }
 
 void AssetBank::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_AssetBank_GameAssets_2eproto.base);
   he1_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  he2_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 AssetBank::~AssetBank() {
@@ -131,7 +120,6 @@ AssetBank::~AssetBank() {
 void AssetBank::SharedDtor() {
   GOOGLE_DCHECK(GetArena() == nullptr);
   he1_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  he2_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void AssetBank::ArenaDtor(void* object) {
@@ -156,13 +144,8 @@ void AssetBank::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
-    if (cached_has_bits & 0x00000001u) {
-      he1_.ClearNonDefaultToEmpty();
-    }
-    if (cached_has_bits & 0x00000002u) {
-      he2_.ClearNonDefaultToEmpty();
-    }
+  if (cached_has_bits & 0x00000001u) {
+    he1_.ClearNonDefaultToEmpty();
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -182,17 +165,6 @@ const char* AssetBank::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           auto str = _internal_mutable_he1();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // optional string he2 = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          auto str = _internal_mutable_he2();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "PBTester.AssetBank.he2");
-          #endif  // !NDEBUG
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -232,16 +204,6 @@ failure:
         1, this->_internal_he1(), target);
   }
 
-  // optional string he2 = 2;
-  if (cached_has_bits & 0x00000002u) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->_internal_he2().data(), static_cast<int>(this->_internal_he2().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
-      "PBTester.AssetBank.he2");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_he2(), target);
-  }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -258,23 +220,14 @@ size_t AssetBank::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  // optional bytes he1 = 1;
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
-    // optional bytes he1 = 1;
-    if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-          this->_internal_he1());
-    }
-
-    // optional string he2 = 2;
-    if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_he2());
-    }
-
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_he1());
   }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
         _internal_metadata_, total_size, &_cached_size_);
@@ -306,14 +259,8 @@ void AssetBank::MergeFrom(const AssetBank& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
-    if (cached_has_bits & 0x00000001u) {
-      _internal_set_he1(from._internal_he1());
-    }
-    if (cached_has_bits & 0x00000002u) {
-      _internal_set_he2(from._internal_he2());
-    }
+  if (from._internal_has_he1()) {
+    _internal_set_he1(from._internal_he1());
   }
 }
 
@@ -340,7 +287,6 @@ void AssetBank::InternalSwap(AssetBank* other) {
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   he1_.Swap(&other->he1_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  he2_.Swap(&other->he2_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata AssetBank::GetMetadata() const {

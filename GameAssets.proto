@@ -4,5 +4,4 @@ package PBTester;
 
 message AssetBank {
   optional bytes he1 = 1;
-  optional string he2 = 2;
 }

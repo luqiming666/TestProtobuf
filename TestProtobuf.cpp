@@ -150,12 +150,13 @@ int CreateFirstPeople(string& pbFile)
     return 0;
 }
 
-// Testing result > no compression at all!!!
-//  bomb.he: 111607 bytes
-//  assets.bnk: 111611 bytes
+// Testing result > 几乎无压缩！
+//  sample.txt: 8000 bytes
+//  assets.bnk: 7884 bytes
+//  compression ratio: 98.55%
 int TestAssetCompression()
 {
-    std::ifstream file("bomb.he");
+    std::ifstream file("sample.txt");
     std::stringstream buffer;
 
     if (file.is_open()) { // 检查文件是否成功打开
@@ -173,7 +174,6 @@ int TestAssetCompression()
     PBTester::AssetBank assetBank;
     //assetBank.set_he1(content.c_str(), content.length());
     assetBank.set_he1(content);
-    //assetBank.set_he2(content);
 
     {
         fstream output(assetFile, ios::out | ios::trunc | ios::binary);
@@ -193,7 +193,7 @@ int main()
     // compatible with the version of the headers we compiled against.
     GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-    TestAssetCompression();
+    //TestAssetCompression();
 
     string bookFile = "D:\\mybook.pb";
 

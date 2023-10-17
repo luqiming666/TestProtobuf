@@ -187,7 +187,6 @@ class AssetBank PROTOBUF_FINAL :
 
   enum : int {
     kHe1FieldNumber = 1,
-    kHe2FieldNumber = 2,
   };
   // optional bytes he1 = 1;
   bool has_he1() const;
@@ -209,26 +208,6 @@ class AssetBank PROTOBUF_FINAL :
   std::string* _internal_mutable_he1();
   public:
 
-  // optional string he2 = 2;
-  bool has_he2() const;
-  private:
-  bool _internal_has_he2() const;
-  public:
-  void clear_he2();
-  const std::string& he2() const;
-  void set_he2(const std::string& value);
-  void set_he2(std::string&& value);
-  void set_he2(const char* value);
-  void set_he2(const char* value, size_t size);
-  std::string* mutable_he2();
-  std::string* release_he2();
-  void set_allocated_he2(std::string* he2);
-  private:
-  const std::string& _internal_he2() const;
-  void _internal_set_he2(const std::string& value);
-  std::string* _internal_mutable_he2();
-  public:
-
   // @@protoc_insertion_point(class_scope:PBTester.AssetBank)
  private:
   class _Internal;
@@ -239,7 +218,6 @@ class AssetBank PROTOBUF_FINAL :
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr he1_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr he2_;
   friend struct ::TableStruct_GameAssets_2eproto;
 };
 // ===================================================================
@@ -325,80 +303,6 @@ inline void AssetBank::set_allocated_he1(std::string* he1) {
   he1_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), he1,
       GetArena());
   // @@protoc_insertion_point(field_set_allocated:PBTester.AssetBank.he1)
-}
-
-// optional string he2 = 2;
-inline bool AssetBank::_internal_has_he2() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
-  return value;
-}
-inline bool AssetBank::has_he2() const {
-  return _internal_has_he2();
-}
-inline void AssetBank::clear_he2() {
-  he2_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline const std::string& AssetBank::he2() const {
-  // @@protoc_insertion_point(field_get:PBTester.AssetBank.he2)
-  return _internal_he2();
-}
-inline void AssetBank::set_he2(const std::string& value) {
-  _internal_set_he2(value);
-  // @@protoc_insertion_point(field_set:PBTester.AssetBank.he2)
-}
-inline std::string* AssetBank::mutable_he2() {
-  // @@protoc_insertion_point(field_mutable:PBTester.AssetBank.he2)
-  return _internal_mutable_he2();
-}
-inline const std::string& AssetBank::_internal_he2() const {
-  return he2_.Get();
-}
-inline void AssetBank::_internal_set_he2(const std::string& value) {
-  _has_bits_[0] |= 0x00000002u;
-  he2_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
-}
-inline void AssetBank::set_he2(std::string&& value) {
-  _has_bits_[0] |= 0x00000002u;
-  he2_.Set(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:PBTester.AssetBank.he2)
-}
-inline void AssetBank::set_he2(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  _has_bits_[0] |= 0x00000002u;
-  he2_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
-              GetArena());
-  // @@protoc_insertion_point(field_set_char:PBTester.AssetBank.he2)
-}
-inline void AssetBank::set_he2(const char* value,
-    size_t size) {
-  _has_bits_[0] |= 0x00000002u;
-  he2_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
-      reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:PBTester.AssetBank.he2)
-}
-inline std::string* AssetBank::_internal_mutable_he2() {
-  _has_bits_[0] |= 0x00000002u;
-  return he2_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline std::string* AssetBank::release_he2() {
-  // @@protoc_insertion_point(field_release:PBTester.AssetBank.he2)
-  if (!_internal_has_he2()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000002u;
-  return he2_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
-}
-inline void AssetBank::set_allocated_he2(std::string* he2) {
-  if (he2 != nullptr) {
-    _has_bits_[0] |= 0x00000002u;
-  } else {
-    _has_bits_[0] &= ~0x00000002u;
-  }
-  he2_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), he2,
-      GetArena());
-  // @@protoc_insertion_point(field_set_allocated:PBTester.AssetBank.he2)
 }
 
 #ifdef __GNUC__

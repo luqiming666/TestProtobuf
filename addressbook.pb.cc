@@ -105,17 +105,20 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_addressbook_2eproto::offsets[]
   ~0u,
   ~0u,
   2,
-  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::tutorial::AddressBook, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::tutorial::AddressBook, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::tutorial::AddressBook, people_),
+  PROTOBUF_FIELD_OFFSET(::tutorial::AddressBook, filepath_),
+  ~0u,
+  0,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, 7, sizeof(::tutorial::Person_PhoneNumber)},
   { 9, 20, sizeof(::tutorial::Person)},
-  { 26, -1, sizeof(::tutorial::AddressBook)},
+  { 26, 33, sizeof(::tutorial::AddressBook)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -133,9 +136,9 @@ const char descriptor_table_protodef_addressbook_2eproto[] PROTOBUF_SECTION_VARI
   "e\030\002 \001(\0162\032.tutorial.Person.PhoneType:\017PHO"
   "NE_TYPE_HOME\"h\n\tPhoneType\022\032\n\026PHONE_TYPE_"
   "UNSPECIFIED\020\000\022\025\n\021PHONE_TYPE_MOBILE\020\001\022\023\n\017"
-  "PHONE_TYPE_HOME\020\002\022\023\n\017PHONE_TYPE_WORK\020\003\"/"
+  "PHONE_TYPE_HOME\020\002\022\023\n\017PHONE_TYPE_WORK\020\003\"A"
   "\n\013AddressBook\022 \n\006people\030\001 \003(\0132\020.tutorial"
-  ".Person"
+  ".Person\022\020\n\010filepath\030\002 \001(\014"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_addressbook_2eproto_deps[1] = {
 };
@@ -146,7 +149,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_add
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_addressbook_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_addressbook_2eproto = {
-  false, false, descriptor_table_protodef_addressbook_2eproto, "addressbook.proto", 407,
+  false, false, descriptor_table_protodef_addressbook_2eproto, "addressbook.proto", 425,
   &descriptor_table_addressbook_2eproto_once, descriptor_table_addressbook_2eproto_sccs, descriptor_table_addressbook_2eproto_deps, 3, 0,
   schemas, file_default_instances, TableStruct_addressbook_2eproto::offsets,
   file_level_metadata_addressbook_2eproto, 3, file_level_enum_descriptors_addressbook_2eproto, file_level_service_descriptors_addressbook_2eproto,
@@ -873,6 +876,10 @@ void AddressBook::InitAsDefaultInstance() {
 }
 class AddressBook::_Internal {
  public:
+  using HasBits = decltype(std::declval<AddressBook>()._has_bits_);
+  static void set_has_filepath(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
 };
 
 AddressBook::AddressBook(::PROTOBUF_NAMESPACE_ID::Arena* arena)
@@ -884,13 +891,20 @@ AddressBook::AddressBook(::PROTOBUF_NAMESPACE_ID::Arena* arena)
 }
 AddressBook::AddressBook(const AddressBook& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _has_bits_(from._has_bits_),
       people_(from.people_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  filepath_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from._internal_has_filepath()) {
+    filepath_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_filepath(),
+      GetArena());
+  }
   // @@protoc_insertion_point(copy_constructor:tutorial.AddressBook)
 }
 
 void AddressBook::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_AddressBook_addressbook_2eproto.base);
+  filepath_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 AddressBook::~AddressBook() {
@@ -901,6 +915,7 @@ AddressBook::~AddressBook() {
 
 void AddressBook::SharedDtor() {
   GOOGLE_DCHECK(GetArena() == nullptr);
+  filepath_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void AddressBook::ArenaDtor(void* object) {
@@ -925,11 +940,17 @@ void AddressBook::Clear() {
   (void) cached_has_bits;
 
   people_.Clear();
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    filepath_.ClearNonDefaultToEmpty();
+  }
+  _has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* AddressBook::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
@@ -948,6 +969,14 @@ const char* AddressBook::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
         } else goto handle_unusual;
         continue;
+      // optional bytes filepath = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_filepath();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
       default: {
       handle_unusual:
         if ((tag & 7) == 4 || tag == 0) {
@@ -963,6 +992,7 @@ const char* AddressBook::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
     }  // switch
   }  // while
 success:
+  _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -982,6 +1012,13 @@ failure:
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, this->_internal_people(i), target, stream);
+  }
+
+  cached_has_bits = _has_bits_[0];
+  // optional bytes filepath = 2;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteBytesMaybeAliased(
+        2, this->_internal_filepath(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1005,6 +1042,14 @@ size_t AddressBook::ByteSizeLong() const {
   for (const auto& msg : this->people_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // optional bytes filepath = 2;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_filepath());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1039,6 +1084,9 @@ void AddressBook::MergeFrom(const AddressBook& from) {
   (void) cached_has_bits;
 
   people_.MergeFrom(from.people_);
+  if (from._internal_has_filepath()) {
+    _internal_set_filepath(from._internal_filepath());
+  }
 }
 
 void AddressBook::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -1062,7 +1110,9 @@ bool AddressBook::IsInitialized() const {
 void AddressBook::InternalSwap(AddressBook* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   people_.InternalSwap(&other->people_);
+  filepath_.Swap(&other->filepath_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata AddressBook::GetMetadata() const {

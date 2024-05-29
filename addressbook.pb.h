@@ -689,6 +689,7 @@ class AddressBook PROTOBUF_FINAL :
 
   enum : int {
     kPeopleFieldNumber = 1,
+    kFilepathFieldNumber = 2,
   };
   // repeated .tutorial.Person people = 1;
   int people_size() const;
@@ -708,6 +709,26 @@ class AddressBook PROTOBUF_FINAL :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::tutorial::Person >&
       people() const;
 
+  // optional bytes filepath = 2;
+  bool has_filepath() const;
+  private:
+  bool _internal_has_filepath() const;
+  public:
+  void clear_filepath();
+  const std::string& filepath() const;
+  void set_filepath(const std::string& value);
+  void set_filepath(std::string&& value);
+  void set_filepath(const char* value);
+  void set_filepath(const void* value, size_t size);
+  std::string* mutable_filepath();
+  std::string* release_filepath();
+  void set_allocated_filepath(std::string* filepath);
+  private:
+  const std::string& _internal_filepath() const;
+  void _internal_set_filepath(const std::string& value);
+  std::string* _internal_mutable_filepath();
+  public:
+
   // @@protoc_insertion_point(class_scope:tutorial.AddressBook)
  private:
   class _Internal;
@@ -715,8 +736,10 @@ class AddressBook PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::tutorial::Person > people_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::tutorial::Person > people_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr filepath_;
   friend struct ::TableStruct_addressbook_2eproto;
 };
 // ===================================================================
@@ -1241,6 +1264,80 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::tutorial::Person >&
 AddressBook::people() const {
   // @@protoc_insertion_point(field_list:tutorial.AddressBook.people)
   return people_;
+}
+
+// optional bytes filepath = 2;
+inline bool AddressBook::_internal_has_filepath() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool AddressBook::has_filepath() const {
+  return _internal_has_filepath();
+}
+inline void AddressBook::clear_filepath() {
+  filepath_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& AddressBook::filepath() const {
+  // @@protoc_insertion_point(field_get:tutorial.AddressBook.filepath)
+  return _internal_filepath();
+}
+inline void AddressBook::set_filepath(const std::string& value) {
+  _internal_set_filepath(value);
+  // @@protoc_insertion_point(field_set:tutorial.AddressBook.filepath)
+}
+inline std::string* AddressBook::mutable_filepath() {
+  // @@protoc_insertion_point(field_mutable:tutorial.AddressBook.filepath)
+  return _internal_mutable_filepath();
+}
+inline const std::string& AddressBook::_internal_filepath() const {
+  return filepath_.Get();
+}
+inline void AddressBook::_internal_set_filepath(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  filepath_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void AddressBook::set_filepath(std::string&& value) {
+  _has_bits_[0] |= 0x00000001u;
+  filepath_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:tutorial.AddressBook.filepath)
+}
+inline void AddressBook::set_filepath(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  _has_bits_[0] |= 0x00000001u;
+  filepath_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:tutorial.AddressBook.filepath)
+}
+inline void AddressBook::set_filepath(const void* value,
+    size_t size) {
+  _has_bits_[0] |= 0x00000001u;
+  filepath_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:tutorial.AddressBook.filepath)
+}
+inline std::string* AddressBook::_internal_mutable_filepath() {
+  _has_bits_[0] |= 0x00000001u;
+  return filepath_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* AddressBook::release_filepath() {
+  // @@protoc_insertion_point(field_release:tutorial.AddressBook.filepath)
+  if (!_internal_has_filepath()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  return filepath_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void AddressBook::set_allocated_filepath(std::string* filepath) {
+  if (filepath != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  filepath_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), filepath,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:tutorial.AddressBook.filepath)
 }
 
 #ifdef __GNUC__

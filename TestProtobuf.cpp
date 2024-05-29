@@ -38,6 +38,10 @@ void PromptForAddress(tutorial::Person* person) {
     person->set_id(id);
     cin.ignore(256, '\n');
 
+    // 在.proto文件中，name的类型为string，所以请勿输入中文名字！
+    // 如需支持中文，须修改字段类型为bytes！参见[Test-A1]
+    // 否则，PB解析时会看到这样的错误：
+    //  String field 'tutorial.Person.name' contains invalid UTF-8 data when parsing a protocol buffer. Use the 'bytes' type if you intend to send raw bytes.
     cout << "Enter name: ";
     getline(cin, *person->mutable_name());
 
@@ -138,6 +142,11 @@ int CreateFirstPeople(string& pbFile)
 
     PromptForAddress(address_book.add_people());
 
+    // [Test-A1] 测试PB文件中的宽字符
+    // .proto声明中使用bytes，即以字节流的方式保存
+    wchar_t bookPath[] = L"C:\\地址簿\\我的.aab"; 
+    address_book.set_filepath(reinterpret_cast<const uint8_t*>(bookPath), wcslen(bookPath) * sizeof(wchar_t));
+
     {
         // Write the new address book back to disk.
         fstream output(pbFile, ios::out | ios::trunc | ios::binary);
@@ -228,6 +237,9 @@ int main()
             }
         }
     }
+
+    // [Test-A1] 测试PB文件中的宽字符
+    std::wstring strFilePath(reinterpret_cast<const wchar_t*>(address_book.filepath().data()), address_book.filepath().size() / sizeof(wchar_t));
 
     cout << ">>> Let's see all people..." << endl;
     ListPeople(address_book);

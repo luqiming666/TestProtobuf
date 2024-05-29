@@ -27,4 +27,5 @@ message Person {
 
 message AddressBook {
   repeated Person people = 1;
+  optional bytes filepath = 2;
 }
